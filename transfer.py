@@ -20,6 +20,30 @@ for index, row in df.iterrows():
     if not os.path.exists(etiqueta_path):
         os.mkdir(etiqueta_path)
 
+    # Cria o arquivo index.html na pasta da etiqueta se ele não existir
+    index_path = os.path.join(etiqueta_path, 'index.html')
+    if not os.path.exists(index_path):
+        index_content = f"""
+        <!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="../../styles/sumarios.css">
+            <title>{etiqueta}</title>
+        </head>
+        <body>
+            <main>
+                <h1>{etiqueta}</h1>
+                <ul>
+                </ul>
+            </main>
+        </body>
+        </html>
+        """
+        with open(index_path, 'w', encoding='utf-8') as index_file:
+            index_file.write(index_content)
+
     url = row['URL']
     response = requests.get(url)
 
@@ -52,8 +76,16 @@ for index, row in df.iterrows():
                 with open(caminho_arquivo, 'w', encoding='utf-8') as arquivo:
                     arquivo.write(template)
 
-                print(f'página criada para: {nome} ({etiqueta})')
+                # Adicione o link ao arquivo index.html da etiqueta
+                with open(index_path, 'r', encoding='utf-8') as index_file:
+                    index_content = index_file.read()
+                with open(index_path, 'w', encoding='utf-8') as index_file:
+                    link = f'<li><a href="{nome_pagina}.html" target="_blank">{nome}</a></li>\n'
+                    index_content = index_content.replace('</ul>', f'{link}</ul>')
+                    index_file.write(index_content)
+
+                print(f'Página criada para: {nome} ({etiqueta})')
         else:
-            print(f'página não encontrada: {url}')
+            print(f'Página não encontrada: {url}')
     else:
-        print(f'erro ao tentar acessar: {url}')
+        print(f'Erro ao tentar acessar: {url}')
