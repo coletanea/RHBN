@@ -15,13 +15,6 @@ colors :
     padding: 0;
 
 }
-.index {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 30px;
-    background-color: #0D1321 ;
-}
 img {
     padding: 10px;
 }
@@ -29,15 +22,10 @@ div {
     text-align: justify;
 }
 div > div {
+
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-div > div img {
-    filter: invert(50%);
-    width: 70px;
-    height: 70px;
-    margin-right: 5px;
 }
 body {
     position: relative;
@@ -50,15 +38,27 @@ body {
 }
 ul {
     list-style-type: none;
+    padding: 25px;
+    margin-bottom: 40px;
 }
-a {
-   color :#0D1321;
-   background-color: #F0EBD8;
-    padding: 5px 10px;
+.index a {
+   font-size: 20px;
+   color: #0D1321;
+   display: block;
+   padding: 5px 10px;
    text-decoration: none;
 }
-li {
-    margin: 20px;
+.index ul li {
+    list-style: none;
+    border-bottom: 1px solid #0D1321;
+}
+.index ul li:hover {
+    transition: 0.5s;
+    background-color: #0D1321;
+
+}
+.index ul a:hover {
+    color: #F0EBD8;
 }
 h1 {
     text-align: left;
@@ -72,29 +72,28 @@ h2 {
     color: #0D1321;
     font-size: 40px;
     line-height: 40px;
+    text-align: left;
 }
 
 main p {
-    font-size: 20px;
+    font-size: 16px;
     padding-bottom: 15px;
 }
-
-a:hover {
-    transition: 0.5s;
-    color: #3E5C76 ;
-}
-
-em {
+em, a{
     color: grey;
 }
 
 main {
     max-width: 80vw;
 }
-
+main > section {
+    border-left: 1px solid #0D1321;
+    border-right: 1px solid #0D1321;
+    max-width: 65vw;
+    padding: 5% 3%;
+}
 article {
-    background-color: #0D1321;
-    color: whitesmoke;
+    color: #0D1321;
     padding: 20px;
     text-align: justify;
     margin: 60px 0;
@@ -127,6 +126,9 @@ footer p {
     h2 {
         font-size: 30px;
         line-height: 35px;
+    }
+    main {
+        width: 100vw;
     }
 }
 

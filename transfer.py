@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-df = pd.read_csv('./archive.csv')
+df = pd.read_csv('./archive.csv').iloc[1000:]
 
 if not os.path.exists('pages'):
     os.mkdir('pages')
@@ -20,7 +20,6 @@ for index, row in df.iterrows():
     if not os.path.exists(etiqueta_path):
         os.mkdir(etiqueta_path)
 
-    # Cria o arquivo index.html na pasta da etiqueta se ele não existir
     index_path = os.path.join(etiqueta_path, 'index.html')
     if not os.path.exists(index_path):
         index_content = f"""
@@ -60,31 +59,34 @@ for index, row in df.iterrows():
 
             nome_pagina = nome.lower().replace(' ', '_')
 
-            with open(template_path, 'r', encoding='utf-8') as template_file:
-                template = template_file.read()
+            # Verifica se a página já existe
+            caminho_arquivo = os.path.join(etiqueta_path, f'{nome_pagina}.html')
+            if os.path.exists(caminho_arquivo):
+                print(f'Página já existe para: {nome} ({etiqueta})')
+            else:
+                with open(template_path, 'r', encoding='utf-8') as template_file:
+                    template = template_file.read()
 
-            template = template.replace('{{titulo}}', nome)
-            template = template.replace('{{subtitulo}}', '') 
-            template = template.replace('{{autor}}', str(p_autor))
+                template = template.replace('{{titulo}}', nome)
+                template = template.replace('{{subtitulo}}', '') 
+                template = template.replace('{{autor}}', str(p_autor))
 
-            if div_body:
-                conteudo_final = str(div_body)
-                template = template.replace('{{conteudo}}', conteudo_final)
+                if div_body:
+                    conteudo_final = str(div_body)
+                    template = template.replace('{{conteudo}}', conteudo_final)
 
-                caminho_arquivo = os.path.join(etiqueta_path, f'{nome_pagina}.html')
+                    with open(caminho_arquivo, 'w', encoding='utf-8') as arquivo:
+                        arquivo.write(template)
 
-                with open(caminho_arquivo, 'w', encoding='utf-8') as arquivo:
-                    arquivo.write(template)
+                    # Adicione o link ao arquivo index.html da etiqueta
+                    with open(index_path, 'r', encoding='utf-8') as index_file:
+                        index_content = index_file.read()
+                    with open(index_path, 'w', encoding='utf-8') as index_file:
+                        link = f'<li><a href="{nome_pagina}.html" target="_blank">{nome}</a></li>\n'
+                        index_content = index_content.replace('</ul>', f'{link}</ul>')
+                        index_file.write(index_content)
 
-                # Adicione o link ao arquivo index.html da etiqueta
-                with open(index_path, 'r', encoding='utf-8') as index_file:
-                    index_content = index_file.read()
-                with open(index_path, 'w', encoding='utf-8') as index_file:
-                    link = f'<li><a href="{nome_pagina}.html" target="_blank">{nome}</a></li>\n'
-                    index_content = index_content.replace('</ul>', f'{link}</ul>')
-                    index_file.write(index_content)
-
-                print(f'Página criada para: {nome} ({etiqueta})')
+                    print(f'Página criada para: {nome} ({etiqueta})')
         else:
             print(f'Página não encontrada: {url}')
     else:
