@@ -61,6 +61,9 @@ li {
     margin: 20px;
 }
 h1 {
+    text-align: left;
+    line-height: 65px;
+    margin-bottom: 25px;
     font-size: 70px;
     color: #0D1321;
 }
