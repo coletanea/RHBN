@@ -20,12 +20,7 @@ img {
 div {
     text-align: justify;
 }
-div > div {
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
 body {
     position: relative;
     display: flex;
@@ -123,13 +118,13 @@ footer p {
         font-size: 50px;
         line-height: 48px;
     }
-
     h2 {
-        font-size: 25px;
-        line-height: 25px;
+        font-size: 20px;
+        line-height: 20px;
     }
     main > section{
-        width: 100vw;
+        border: none;
+        max-width: 100vw;
     }
     
 }
