@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-df = pd.read_csv('./archive.csv').iloc[1000:]
+df = pd.read_csv('./archive.csv').iloc[2600:]
 
 if not os.path.exists('pages'):
     os.mkdir('pages')
