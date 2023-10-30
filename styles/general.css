@@ -30,7 +30,7 @@ body {
     background-color: #F0EBD8;
     padding: 30px 30px 0 30px;
 }
-ul {
+.index ul {
     list-style-type: none;
     padding: 25px;
     margin-bottom: 40px;
@@ -68,7 +68,16 @@ h2 {
     line-height: 40px;
     text-align: left;
 }
-
+.body-content {
+    max-width: 90vw;
+}
+#autor {
+    display: block;
+    font-weight: 700;
+}
+ul {
+    list-style: none;
+}
 main p {
     font-size: 16px;
     padding-bottom: 15px;
@@ -130,6 +139,11 @@ footer p {
 }
 
 @media screen and (max-width: 500px) {
+    p img {
+        display: block;
+        margin: auto;
+        padding: 0;
+    }
     body {
         padding: 15px;
     }
@@ -139,5 +153,9 @@ footer p {
 
     p {
         font-size: 16px;
+    }
+    .content {
+        max-width: 420px;
+        padding: 20px
     }
 }
