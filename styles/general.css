@@ -36,12 +36,13 @@ header {
     max-width: 500px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     color: #0D1321;
 
 }
 #searchResults  a {
     color: #0D1321;
+    margin-bottom: 5px;
 }
 #searchInput {
     margin-bottom: 15px;
