@@ -9,8 +9,7 @@
 </head>
 
 <body>
-      <header>
-        
+    <header>
         <div id="search">
             <input type="text" id="searchInput" placeholder="Digite a palavra a ser encontrada">
             <button onclick="search()">Buscar</button>
@@ -18,8 +17,9 @@
         <div id="searchResults"></div>
     </header>
 
+
     <main>
-        
+
 
 
         <section>
@@ -132,127 +132,138 @@
 
     <footer>
         <p>&copy;2023 Felipe Nunes. Todos os direitos reservados.</p>
-    </footer>    
-    
+    </footer>
+
     <script> //resolver problemas do href (subdirectories + page)
-         function search() {
+        function search() {
             var searchTerm = document.getElementById("searchInput").value.toLowerCase();
             var results = [];
 
-
             var subdirectories = [
-                "./pages/nao_etiquetado/",
-                "./pages/educação",
-                "./pages/homossexualidades",
-                "./pages/conjuração_baiana",
-                "./pages/mulheres_em_conflitos",
-                "./pages/fim_da_guerra",
-                "./pages/comida_e_modos_de_comer",
-                "./pages/redemocratização",
-                "./pages/feminismos",
-                "./pages/antônio_vieira",
-                "./pages/canudos",
-                "./pages/drogas",
-                "./pages/getúlio_vargas",
-                "./pages/tráfico_de_escravos",
-                "./pages/leopoldina",
-                "./pages/primeira_guerra_mundial",
-                "./pages/contestado",
-                "./pages/descobrimentos",
-                "./pages/o_golpe_de_1964",
-                "./pages/o_golpe_de_1965",
-                "./pages/o_golpe_de_1966",
-                "./pages/o_golpe_de_1967",
-                "./pages/revolução_de_1932",
-                "./pages/revolução_de_1933",
-                "./pages/revolução_de_1934",
-                "./pages/jesuítas",
-                "./pages/princesa_isabel",
-                "./pages/áfrica_brasil",
-                "./pages/astrologia",
-                "./pages/d._pedro_i/",
-                "./pages/italianos_do_brasil",
-                "./pages/arqueologia",
-                "./pages/batalhas",
-                "./pages/sociedades_secretas",
-                "./pages/fora_da_lei",
-                "./pages/o_negócio_da_inconfidência",
-                "./pages/brasil_e_estados_unidos",
-                "./pages/amantes",
-                "./pages/profecias",
-                "./pages/integralismo",
-                "./pages/animais_de_estimação",
-                "./pages/atentados_políticos",
-                "./pages/judeus",
-                "./pages/café",
-                "./pages/feitiçaria",
-                "./pages/napoleão",
-                "./pages/escravidão",
-                "./pages/república",
-                "./pages/frança",
-                "./pages/independência",
-                "./pages/euclides_da_cunha",
-                "./pages/árabes_no_brasil"
+                "nao_etiquetado",
+                "educação",
+                "homossexualidades",
+                "conjuração_baiana",
+                "mulheres_em_conflitos",
+                "fim_da_guerra",
+                "comida_e_modos_de_comer",
+                "redemocratização",
+                "feminismos",
+                "antônio_vieira",
+                "canudos",
+                "drogas",
+                "getúlio_vargas",
+                "tráfico_de_escravos",
+                "leopoldina",
+                "primeira_guerra_mundial",
+                "contestado",
+                "descobrimentos",
+                "o_golpe_de_1964",
+                "o_golpe_de_1965",
+                "o_golpe_de_1966",
+                "o_golpe_de_1967",
+                "revolução_de_1932",
+                "revolução_de_1933",
+                "revolução_de_1934",
+                "jesuítas",
+                "princesa_isabel",
+                "áfrica_brasil",
+                "astrologia",
+                "d._pedro_i",
+                "italianos_do_brasil",
+                "arqueologia",
+                "batalhas",
+                "sociedades_secretas",
+                "fora_da_lei",
+                "o_negócio_da_inconfidência",
+                "brasil_e_estados_unidos",
+                "amantes",
+                "profecias",
+                "integralismo",
+                "animais_de_estimação",
+                "atentados_políticos",
+                "judeus",
+                "café",
+                "feitiçaria",
+                "napoleão",
+                "escravidão",
+                "república",
+                "frança",
+                "independência",
+                "euclides_da_cunha",
+                "árabes_no_brasil"
             ];
+            function sanitizePath(path) {
+        // Remover caracteres especiais do caminho
+        return path.replace(/[^a-zA-Z0-9/_-]/g, '');
+    }
 
-            function searchInDirectory(directory) {
-                fetch(directory)
-                    .then(response => response.text())
-                    .then(content => {
-                        var parser = new DOMParser();
-                        var htmlDoc = parser.parseFromString(content, 'text/html');
-                        var links = htmlDoc.querySelectorAll('a[href$=".html"]');
+    function searchInDirectory(directory) {
+        return fetch(`./pages/${directory}`)
+            .then(response => response.text())
+            .then(content => {
+                var parser = new DOMParser();
+                var htmlDoc = parser.parseFromString(content, 'text/html');
+                var links = htmlDoc.querySelectorAll('a[href$=".html"]');
+                var promises = [];
 
-                        links.forEach(function (link) {
-                            var filePath = link.getAttribute("href");
-                            fetch(filePath)
-                                .then(response => response.text())
-                                .then(fileContent => {
-                                    if (fileContent.toLowerCase().includes(searchTerm)) {
-                                        results.push({ title: link.textContent, link: filePath });
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error("Erro ao buscar arquivo " + filePath, error);
-                                });
+                links.forEach(function (link) {
+                    var filePath = link.getAttribute("href");
+
+                    // Corrigir o caminho do arquivo resultante
+                    var resultPath = sanitizePath(filePath.replace('./pages/', ''));
+
+                    var fetchPromise = fetch(resultPath)
+                        .then(response => response.text())
+                        .then(fileContent => {
+                            if (fileContent.toLowerCase().includes(searchTerm)) {
+                                results.push({ title: link.textContent, link: resultPath, directory: directory });
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Erro ao buscar arquivo " + resultPath, error);
                         });
-                    })
-                    .then(() => {
-                        displayResults(results);
-                    })
-                    .catch(error => {
-                        console.error("Erro ao buscar diretório " + directory, error);
-                    });
-            }
 
-            subdirectories.forEach(function (subdirectory) {
-                searchInDirectory(subdirectory);
+                    promises.push(fetchPromise);
+                });
+
+                return Promise.all(promises);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar diretório " + directory, error);
             });
-        }
+    }
 
-        function displayResults(results) {
+    // Limpar resultados antes de uma nova busca
+    results = [];
+
+    // Iniciar busca em cada diretório e, após tudo, exibir resultados
+    Promise.all(subdirectories.map(searchInDirectory))
+        .then(() => {
+            displayResults(results);
+        });
+}
+
+function displayResults(results) {
     var resultsContainer = document.getElementById("searchResults");
     resultsContainer.innerHTML = "";
 
     if (results.length === 0) {
-        resultsContainer.innerHTML = "nenhum resultado encontrado.";
+        resultsContainer.innerHTML = "Nenhum resultado encontrado.";
     } else {
         results.forEach(function (result) {
             var resultLink = document.createElement('a');
             resultLink.textContent = result.title;
 
-            
-            var indexDirectory = "./pages/"; 
-            var fullLink = indexDirectory + result.link;
-
-            resultLink.href = fullLink;
-            resultLink.target = "_blank"; 
+            // Corrigir o caminho do link resultante
+            var resultPath = `./pages/${result.directory}/${result.link}`;
+            resultLink.href = resultPath;
+            resultLink.target = "_blank";
             resultsContainer.appendChild(resultLink);
-            resultsContainer.appendChild(document.createElement('br')); 
+            resultsContainer.appendChild(document.createElement('br'));
         });
     }
 }
-
     </script>
 </body>
 
