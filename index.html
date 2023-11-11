@@ -20,8 +20,6 @@
 
     <main>
 
-
-
         <section>
             <div>
                 <div>
@@ -124,7 +122,7 @@
                 <li><a target="_blank" href="./pages/independencia">Independência</a></li>
                 <li><a target="_blank" href="./pages/euclides_da_cunha">Euclides da Cunha</a></li>
                 <li><a target="_blank" href="./pages/arabes_no_brasil">Árabes no Brasil</a></li>
-                
+
             </ul>
 
         </section>
@@ -135,26 +133,26 @@
         <p>&copy;2023 Felipe Nunes. Todos os direitos reservados.</p>
     </footer>
 
-    <script> //resolver problemas do href (subdirectories + page)
+    <script> 
         function search() {
             var searchTerm = document.getElementById("searchInput").value.toLowerCase();
             var results = [];
 
             var subdirectories = [
                 "nao_etiquetado",
-                "educação",
+                "educacao",
                 "homossexualidades",
-                "conjuração_baiana",
+                "conjuracao_baiana",
                 "mulheres_em_conflitos",
                 "fim_da_guerra",
                 "comida_e_modos_de_comer",
-                "redemocratização",
+                "redemocratizacao",
                 "feminismos",
-                "antônio_vieira",
+                "antonio_vieira",
                 "canudos",
                 "drogas",
-                "getúlio_vargas",
-                "tráfico_de_escravos",
+                "getulio_vargas",
+                "trafico_de_escravos",
                 "leopoldina",
                 "primeira_guerra_mundial",
                 "contestado",
@@ -163,44 +161,39 @@
                 "o_golpe_de_1965",
                 "o_golpe_de_1966",
                 "o_golpe_de_1967",
-                "revolução_de_1932",
-                "revolução_de_1933",
-                "revolução_de_1934",
-                "jesuítas",
+                "revolucao_de_1932",
+                "revolucao_de_1933",
+                "revolucao_de_1934",
+                "jesuitas",
                 "princesa_isabel",
-                "áfrica_brasil",
+                "africa_brasil",
                 "astrologia",
-                "d._pedro_i",
+                "d_pedro_i",
                 "italianos_do_brasil",
                 "arqueologia",
                 "batalhas",
                 "sociedades_secretas",
                 "fora_da_lei",
-                "o_negócio_da_inconfidência",
+                "o_negocio_da_inconfidencia",
                 "brasil_e_estados_unidos",
                 "amantes",
                 "profecias",
                 "integralismo",
-                "animais_de_estimação",
-                "atentados_políticos",
+                "animais_de_estimacao",
+                "atentados_politicos",
                 "judeus",
-                "café",
-                "feitiçaria",
-                "napoleão",
-                "escravidão",
-                "república",
-                "frança",
-                "independência",
+                "cafe",
+                "feiticaria",
+                "napoleao",
+                "escravidao",
+                "republica",
+                "franca",
+                "independencia",
                 "euclides_da_cunha",
-                "árabes_no_brasil"
+                "arabes_no_brasil"
             ];
-            function sanitizePath(path) {
-        // Remover caracteres especiais do caminho
-        return path.replace(/[^a-zA-Z0-9/_-]/g, '');
-    }
-
-    function searchInDirectory(directory) {
-        return fetch(`./pages/${directory}`)
+            function searchInDirectory(directory) {
+        return fetch(`./pages/${directory}/index.html`)
             .then(response => response.text())
             .then(content => {
                 var parser = new DOMParser();
@@ -211,14 +204,13 @@
                 links.forEach(function (link) {
                     var filePath = link.getAttribute("href");
 
-                    // Corrigir o caminho do arquivo resultante
-                    var resultPath = sanitizePath(filePath.replace('./pages/', ''));
+                    var resultPath = `./pages/${directory}/${filePath}`;
 
                     var fetchPromise = fetch(resultPath)
                         .then(response => response.text())
                         .then(fileContent => {
                             if (fileContent.toLowerCase().includes(searchTerm)) {
-                                results.push({ title: link.textContent, link: resultPath, directory: directory });
+                                results.push({ title: link.textContent, link: resultPath });
                             }
                         })
                         .catch(error => {
@@ -235,10 +227,8 @@
             });
     }
 
-    // Limpar resultados antes de uma nova busca
     results = [];
 
-    // Iniciar busca em cada diretório e, após tudo, exibir resultados
     Promise.all(subdirectories.map(searchInDirectory))
         .then(() => {
             displayResults(results);
@@ -256,8 +246,7 @@ function displayResults(results) {
             var resultLink = document.createElement('a');
             resultLink.textContent = result.title;
 
-            // Corrigir o caminho do link resultante
-            var resultPath = `./pages/${result.directory}/${result.link}`;
+            var resultPath = result.link;
             resultLink.href = resultPath;
             resultLink.target = "_blank";
             resultsContainer.appendChild(resultLink);
