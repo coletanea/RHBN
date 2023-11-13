@@ -9,23 +9,27 @@
 </head>
 
 <body>
-    <header>
-        <div id="search">
-            <input type="text" id="searchInput" placeholder="Digite a palavra a ser encontrada">
-            <button onclick="search()">Buscar</button>
-        </div>
-        <div id="searchResults"></div>
-    </header>
 
 
     <main>
+        <header>
+            <div id="search">
+                <input type="text" id="searchInput" placeholder="Digite a palavra a ser encontrada" class="blinking-cursor">
+                <div>
+                    <button onclick="search()">Buscar</button>
+                    <button id="clear">Limpar</button>
+                </div>
+            </div>
+            <div id="searchResults"></div>
+        </header>
+
 
         <section>
             <div>
                 <div>
                     <h1>Disclaimer</h1>
                 </div>
-                <h2>Acervo Revista de História da Biblioteca Nacional do Web Archive</h2>
+                
             </div>
             <article>
                 <p>
@@ -133,7 +137,25 @@
         <p>&copy;2023 Felipe Nunes. Todos os direitos reservados.</p>
     </footer>
 
-    <script> 
+    <script>
+    
+    
+    var clearButton = document.getElementById("clear")
+    var resultsContainer = document.getElementById("searchResults");
+
+        clearButton.addEventListener('click', clear)
+
+        function clear() {
+            let search = document.getElementById("searchInput");
+
+            search.value = ''; 
+            location.reload();
+
+           
+            
+
+    }
+
         function search() {
             var searchTerm = document.getElementById("searchInput").value.toLowerCase();
             var results = [];
@@ -193,67 +215,69 @@
                 "arabes_no_brasil"
             ];
             function searchInDirectory(directory) {
-        return fetch(`./pages/${directory}/index.html`)
-            .then(response => response.text())
-            .then(content => {
-                var parser = new DOMParser();
-                var htmlDoc = parser.parseFromString(content, 'text/html');
-                var links = htmlDoc.querySelectorAll('a[href$=".html"]');
-                var promises = [];
+                return fetch(`./pages/${directory}/index.html`)
+                    .then(response => response.text())
+                    .then(content => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(content, 'text/html');
+                        var links = htmlDoc.querySelectorAll('a[href$=".html"]');
+                        var promises = [];
 
-                links.forEach(function (link) {
-                    var filePath = link.getAttribute("href");
+                        links.forEach(function (link) {
+                            var filePath = link.getAttribute("href");
 
-                    var resultPath = `./pages/${directory}/${filePath}`;
+                            var resultPath = `./pages/${directory}/${filePath}`;
 
-                    var fetchPromise = fetch(resultPath)
-                        .then(response => response.text())
-                        .then(fileContent => {
-                            if (fileContent.toLowerCase().includes(searchTerm)) {
-                                results.push({ title: link.textContent, link: resultPath });
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Erro ao buscar arquivo " + resultPath, error);
+                            var fetchPromise = fetch(resultPath)
+                                .then(response => response.text())
+                                .then(fileContent => {
+                                    if (fileContent.toLowerCase().includes(searchTerm)) {
+                                        results.push({ title: link.textContent, link: resultPath });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Erro ao buscar arquivo " + resultPath, error);
+                                });
+
+                            promises.push(fetchPromise);
                         });
 
-                    promises.push(fetchPromise);
+                        return Promise.all(promises);
+                    })
+                    .catch(error => {
+                        console.error("Erro ao buscar diretório " + directory, error);
+                    });
+            }
+
+            results = [];
+
+            Promise.all(subdirectories.map(searchInDirectory))
+                .then(() => {
+                    displayResults(results);
                 });
+        }
 
-                return Promise.all(promises);
-            })
-            .catch(error => {
-                console.error("Erro ao buscar diretório " + directory, error);
-            });
-    }
+        function displayResults(results) {
+            
+            resultsContainer.innerHTML = "";
 
-    results = [];
+            if (results.length === 0) {
+                resultsContainer.innerHTML = "Nenhum resultado encontrado.";
+            } else {
+                results.forEach(function (result) {
+                    var resultLink = document.createElement('a');
+                    resultLink.textContent = result.title;
 
-    Promise.all(subdirectories.map(searchInDirectory))
-        .then(() => {
-            displayResults(results);
-        });
-}
+                    var resultPath = result.link;
+                    resultLink.href = resultPath;
+                    resultLink.target = "_blank";
+                    resultsContainer.appendChild(resultLink);
+                });
+            }
+        }
 
-function displayResults(results) {
-    var resultsContainer = document.getElementById("searchResults");
-    resultsContainer.innerHTML = "";
-
-    if (results.length === 0) {
-        resultsContainer.innerHTML = "Nenhum resultado encontrado.";
-    } else {
-        results.forEach(function (result) {
-            var resultLink = document.createElement('a');
-            resultLink.textContent = result.title;
-
-            var resultPath = result.link;
-            resultLink.href = resultPath;
-            resultLink.target = "_blank";
-            resultsContainer.appendChild(resultLink);
-            resultsContainer.appendChild(document.createElement('br'));
-        });
-    }
-}
+         
+        
     </script>
 </body>
 
