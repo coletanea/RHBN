@@ -106,15 +106,15 @@ body {
 }
 #searchResults a {
     text-decoration: none;
-    color: #0D1321;
+    color: #0d1321ba;
     width: 100%;
     padding: 5px 7px;
     border-bottom: 1.5px solid ;
 }
 #searchResults a:hover {
     transition: 0.5s;
-    background-color: #0D1321;
-    color: #F0EBD8;
+   color: #0D1321;
+    
 }
 h1 {
     text-align: left;
@@ -197,10 +197,7 @@ footer p {
 }
 
 @media screen and (max-width: 800px) {
-    h1 {
-        font-size: 50px;
-        line-height: 48px;
-    }
+    
     h2 {
         font-size: 20px;
         line-height: 20px;
@@ -214,9 +211,6 @@ footer p {
         grid-template-columns: 1fr;
     }
 
-    
-}
-@media screen and (max-width: 800px) {
     main {
         border: none;
     }
@@ -226,7 +220,11 @@ footer p {
         display: block;
         
     }
-
+    h1 {
+        font-size: 50px;
+        line-height: 48px;
+        margin-bottom: 0;
+    }
     body {
         padding: 15px;
     }
