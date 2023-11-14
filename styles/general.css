@@ -50,8 +50,9 @@ div {
 
     color: #F0EBD8;
     font-size: 18px;
-    border: 1.5px solid #F0EBD8;
+    border:none;
     padding: 7px 10px;
+    border-radius: 5px;
 }
 #searchInput:focus {
     outline: none;
@@ -59,8 +60,9 @@ div {
 
 }
 button {
+    border-radius: 5px;
     margin-left: 15px;
-    border: 1.5px solid #0D1321;
+    border: 1.8px solid #0D1321;
     background-color: #F0EBD8;
     color: #0D1321;
     padding: 5px 10px;
