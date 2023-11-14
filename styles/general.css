@@ -17,10 +17,13 @@ colors :
 img {
     padding: 10px;
 }
+h1 {
+    color: #0D1321;
+}
 div {
     text-align: justify;
 }
-header {
+#searchContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,15 +41,16 @@ header {
     display: flex;
     flex-direction: column;
     align-items: start;
-    color: #0D1321;
+    color: #F0EBD8;
 
 }
 
 #searchInput {
     background-color: #0D1321;
+
     color: #F0EBD8;
     font-size: 18px;
-    border: none;
+    border: 1.5px solid #F0EBD8;
     padding: 7px 10px;
 }
 #searchInput:focus {
@@ -56,16 +60,20 @@ header {
 }
 button {
     margin-left: 15px;
-    background-color: #0D1321;
-    color: #F0EBD8;
+    border: 1.5px solid #0D1321;
+    background-color: #F0EBD8;
+    color: #0D1321;
     padding: 5px 10px;
-    border: none;
+    
     font-size: 16px;
 }
 button:hover {
     cursor: pointer;
     transition: 0.5s;
-    background-color: #0d1321ba;
+    color: #F0EBD8;
+    background-color: #0D1321;
+
+
 
 }
 body {
@@ -134,14 +142,15 @@ body {
 }
 #searchResults a {
     text-decoration: none;
-    color: #0d1321ba;
+    color: #0D1321;
     width: 100%;
     padding: 5px 7px;
-    border-bottom: 1.5px solid ;
+    border-bottom: 1.5px solid #0D1321;
 }
 #searchResults a:hover {
     transition: 0.5s;
-   color: #0D1321;
+    color: #F0EBD8;
+   background-color: #0D1321;
     
 }
 h1 {
@@ -187,7 +196,7 @@ main {
     display: flex;
     flex-direction: column;
 }
-#disclaimer {
+#disclaimer, .index {
    padding:  80px 0;
   
 }
@@ -278,8 +287,14 @@ footer p {
     body {
         overflow-x: hidden;
     }
-    
-   
+    #search {
+        flex-direction: column;
+        align-items: end;
+
+    }
+    button {
+        margin-top: 15px;
+    }
 }
 @media screen and (max-width: 500px) {
 
@@ -314,15 +329,9 @@ footer p {
         font-size: 16px;
     }
     
-    header {
+    #searchContainer {
         max-width: 80vw;
     }
-    #search {
-        flex-direction: column;
-        align-items: end;
-
-    }
-    button {
-        margin-top: 15px;
-    }
+    
+   
 }
