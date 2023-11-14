@@ -62,21 +62,12 @@ div {
 button {
     border-radius: 5px;
     margin-left: 15px;
-    border: 1.8px solid #0D1321;
-    background-color: #F0EBD8;
-    color: #0D1321;
+    color: #F0EBD8;
+    background-color: #0D1321;
+    border: none;
     padding: 5px 10px;
     
     font-size: 16px;
-}
-button:hover {
-    cursor: pointer;
-    transition: 0.5s;
-    color: #F0EBD8;
-    background-color: #0D1321;
-
-
-
 }
 body {
     position: relative;
@@ -127,20 +118,22 @@ body {
    padding: 5px 10px;
    text-decoration: none;
 }
-.index ul li {
+.index ul li{
+
+    border-radius: 5px;
     background-color: #0D1321;
     list-style: none;
     border-bottom: 1px solid #0D1321;
 }
-.index ul li:hover {
+.index ul li:hover, button:hover {
     transition: 0.5s;
     border: none;
-    color: #0D1321;
-    background-color: #F0EBD8;
-
+    color: #F0EBD8;
+    background-color: #0d13219a;
+    cursor: pointer;
 }
 .index ul a:hover {
-    color: #0D1321;
+    color: #F0EBD8;
 }
 #searchResults a {
     text-decoration: none;
