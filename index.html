@@ -10,9 +10,11 @@
 
 <body>
 
-
     <main>
-        <header>
+
+
+
+        <!-- <header>
             <div id="search">
                 <input type="text" id="searchInput" placeholder="Digite a palavra a ser encontrada" class="blinking-cursor">
                 <div>
@@ -21,15 +23,29 @@
                 </div>
             </div>
             <div id="searchResults"></div>
-        </header>
+        </header> -->
+        <div id="dashb">
+
+            <div>
+                <label for="tagCount">coleções</label>
+                <h1 id="tagCount">77</h1>
+            </div>
+
+            <div>
+                <label for="articleCount">artigos</label>
+                <h1 id="articleCount">2953</h1>
+            </div>
+
+        </div>
 
 
-        <section>
+        <section id="disclaimer">
+
             <div>
                 <div>
                     <h1>Disclaimer</h1>
                 </div>
-                
+
             </div>
             <article>
                 <p>
@@ -69,6 +85,7 @@
                 </p>
             </article>
         </section>
+
 
 
         <section class="index">
@@ -138,23 +155,20 @@
     </footer>
 
     <script>
-    
-    
-    var clearButton = document.getElementById("clear")
-    var resultsContainer = document.getElementById("searchResults");
+
+
+        var clearButton = document.getElementById("clear")
+        var resultsContainer = document.getElementById("searchResults");
 
         clearButton.addEventListener('click', clear)
 
         function clear() {
             let search = document.getElementById("searchInput");
 
-            search.value = ''; 
+            search.value = '';
             location.reload();
 
-           
-            
-
-    }
+        }
 
         function search() {
             var searchTerm = document.getElementById("searchInput").value.toLowerCase();
@@ -236,7 +250,7 @@
                                     }
                                 })
                                 .catch(error => {
-                                    console.error("Erro ao buscar arquivo " + resultPath, error);
+                                    console.error("erro ao buscar arquivo " + resultPath, error);
                                 });
 
                             promises.push(fetchPromise);
@@ -245,7 +259,7 @@
                         return Promise.all(promises);
                     })
                     .catch(error => {
-                        console.error("Erro ao buscar diretório " + directory, error);
+                        console.error("erro ao buscar diretório " + directory, error);
                     });
             }
 
@@ -258,11 +272,11 @@
         }
 
         function displayResults(results) {
-            
+
             resultsContainer.innerHTML = "";
 
             if (results.length === 0) {
-                resultsContainer.innerHTML = "Nenhum resultado encontrado.";
+                resultsContainer.innerHTML = "nenhum resultado encontrado.";
             } else {
                 results.forEach(function (result) {
                     var resultLink = document.createElement('a');
@@ -276,8 +290,42 @@
             }
         }
 
-         
-        
+        countArticlesAndTags();
+
+        function countArticlesAndTags() {
+            var articleCount = 0;
+            var tagCount = subdirectories.length;
+
+            function countArticlesInDirectory(directory) {
+                return fetch(`./pages/${directory}/index.html`)
+                    .then(response => response.text())
+                    .then(content => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(content, 'text/html');
+                        var links = htmlDoc.querySelectorAll('a[href$=".html"]');
+                        articleCount += links.length;
+                    })
+                    .catch(error => {
+                        console.error("Erro ao contar artigos no diretório " + directory, error);
+                    });
+            }
+
+            // Adicionei a contagem de artigos
+            Promise.all(subdirectories.map(countArticlesInDirectory))
+                .then(() => {
+                    displayCounts(articleCount, tagCount);
+                });
+        }
+
+        // Adicionei a função para exibir as contagens
+        function displayCounts(articleCount, tagCount) {
+            var articleCountElement = document.getElementById("articleCount");
+            var tagCountElement = document.getElementById("tagCount");
+
+            articleCountElement.textContent = articleCount;
+            tagCountElement.textContent = tagCount;
+        }
+
     </script>
 </body>
 

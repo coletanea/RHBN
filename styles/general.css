@@ -70,6 +70,7 @@ button:hover {
 }
 body {
     position: relative;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -77,10 +78,36 @@ body {
     background-color: #F0EBD8;
 
 }
+#dashb {
+    background-color: #0D1321;
+    display: flex;
+    
+    padding: 70px 0 50px 0;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+#dashb h1 {
+    font-size: 95px;
+    color: #F0EBD8;
+}
+#dashb div {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: baseline;
 
+}
+#dashb label {
+    margin-left: 10px;
+    font-size: 30px;
+    color: #F0EBD8;
+    font-weight: 900;
+}
 .index ul {
+
+    align-self: stretch;
     list-style-type: none;
-    padding: 25px;
+    padding: 25px 0;
     margin-bottom: 40px;
 }
 .index a {
@@ -98,11 +125,12 @@ body {
 .index ul li:hover {
     transition: 0.5s;
     border: none;
-    background-color: #0d1321ba;
+    color: #0D1321;
+    background-color: #F0EBD8;
 
 }
 .index ul a:hover {
-    color: #F0EBD8;
+    color: #0D1321;
 }
 #searchResults a {
     text-decoration: none;
@@ -127,7 +155,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-
+    width: 100%;
 }
 
 h2 {
@@ -144,8 +172,8 @@ h2 {
     font-weight: 700;
 }
 ul {
-    list-style: none;
-}
+        list-style: none;
+    }
 main p {
     font-size: 16px;
     padding-bottom: 15px;
@@ -154,20 +182,24 @@ em, a{
     color: grey;
 }
 
-main { border-left: 1px solid #0D1321;
-    border-right: 1px solid #0D1321;
-    max-width: 65vw;
-    
-    
+main { 
+    max-width: 70vw;
+    display: flex;
+    flex-direction: column;
 }
-main > section {
-   padding: 5% 3%;
+#disclaimer {
+   padding:  80px 0;
+  
 }
+/* #disclaimer {
+   border-bottom:1px solid #0D1321;
+} */
+
 article {
     color: #0D1321;
-    padding: 20px;
+  
     text-align: justify;
-    margin: 60px 0;
+    padding: 20px 0;
 }
 footer {
     position: absolute;
@@ -177,7 +209,12 @@ footer {
     align-items: center;
     width: 100%;
 }
-
+.content h1 {
+    margin-bottom: 15px;
+}
+.content #autor {
+    margin-bottom: 30px;
+}
 footer p {
     font-size: 14px;
 }
@@ -188,11 +225,17 @@ footer p {
 }
 @media screen and (max-width: 1000px) {
     main {
-        max-width: 90vw;
-    }
-    .content {
         max-width: 100vw;
-    
+    }
+   .content {
+        max-width: 90vw;
+        
+    }
+    #disclaimer, .index {
+        padding: 60px 20px ;
+    }
+    #disclaimer {
+        margin-top: 80px;
     }
 }
 
@@ -208,26 +251,61 @@ footer p {
 
     }
     .index ul{
+
         grid-template-columns: 1fr;
     }
+   
+    #dashb {
+        flex-direction: column-reverse;
+        justify-content: center;
+       align-items: center;
+       padding: 20px 0;
 
-    main {
-        border: none;
     }
+    #dashb h1 {
+        font-size: 75px;
+    }
+    
+    #dashb div {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: baseline;
+        margin:  30px 0;
+    }
+    #dashb label {
+        font-size: 25px;
+    }
+    body {
+        overflow-x: hidden;
+    }
+    
+   
 }
 @media screen and (max-width: 500px) {
+
+    #dashb label {
+        font-size: 20px;
+        
+    }
+    
+    main > section {
+        padding:  70px 10px;
+     }
+    
+    article {
+        margin: 0;
+    }
+    
     p img {
         display: block;
         
     }
     h1 {
-        font-size: 50px;
+        font-size: 60px;
         line-height: 48px;
         margin-bottom: 0;
     }
-    body {
-        padding: 15px;
-    }
+    
     h2 {
         font-size: 20px;
     }
@@ -235,10 +313,7 @@ footer p {
     p {
         font-size: 16px;
     }
-    .content {
-        max-width: 420px;
-        padding: 20px
-    }
+    
     header {
         max-width: 80vw;
     }
