@@ -27,7 +27,7 @@ div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding:  15px 30px;
+    padding:  65px 30px;
 }
 #search {
     display: flex;
@@ -56,7 +56,6 @@ div {
 }
 #searchInput:focus {
     outline: none;
-
 
 }
 button {
@@ -236,10 +235,7 @@ footer p {
         
     }
     #disclaimer, .index {
-        padding: 60px 20px ;
-    }
-    #disclaimer {
-        margin-top: 80px;
+        padding: 40px 20px ;
     }
 }
 
