@@ -2,13 +2,24 @@
 <!DOCTYPE html>
 
 <html lang="pt-br">
-<head>
+<head><link href="../../styles/general.css" rel="stylesheet"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../styles/sumarios.css" rel="stylesheet"/>
 <title>Fim da Guerra</title>
 </head>
 <body>
+<section id="searchContainer" style="margin-top: 10px;">
+<div id="search">
+<input class="blinking-cursor" id="searchInput" placeholder="Digite a palavra a ser encontrada" type="text"/>
+<div>
+<button onclick="search()">Buscar</button>
+<button id="clear">Limpar</button>
+</div>
+</div>
+<div id="searchResults"></div>
+</section>
+
 <main>
 <h1>Fim da Guerra</h1>
 <ul>
@@ -19,21 +30,7 @@
 <li><a href="./o_pior_dos_fins.html" target="_blank">O pior dos fins</a></li>
 <li><a href="./paraiso_duvidoso.html" target="_blank">Paraíso duvidoso</a></li>
 <li><a href="./aquem_do_horror.html" target="_blank">Aquém do horror</a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </ul>
 </main>
-</body>
+<script src="../../js/searchbar.js"></script></body>
 </html>

@@ -2,13 +2,24 @@
 <!DOCTYPE html>
 
 <html lang="pt-br">
-<head>
+<head><link href="../../styles/general.css" rel="stylesheet"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../styles/sumarios.css" rel="stylesheet"/>
 <title>Canudos</title>
 </head>
 <body>
+<section id="searchContainer" style="margin-top: 10px;">
+<div id="search">
+<input class="blinking-cursor" id="searchInput" placeholder="Digite a palavra a ser encontrada" type="text"/>
+<div>
+<button onclick="search()">Buscar</button>
+<button id="clear">Limpar</button>
+</div>
+</div>
+<div id="searchResults"></div>
+</section>
+
 <main>
 <h1>Canudos</h1>
 <ul>
@@ -17,12 +28,7 @@
 <li><a href="./a_midia_em_campanha.html" target="_blank">A mídia em campanha</a></li>
 <li><a href="./noticias_do_fim_do_mundo.html" target="_blank">Notícias do fim do mundo</a></li>
 <li><a href="./sobrevivencia_na_tela.html" target="_blank">Sobrevivência na tela</a></li>
-
-
-
-
-
 </ul>
 </main>
-</body>
+<script src="../../js/searchbar.js"></script></body>
 </html>

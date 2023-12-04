@@ -10,13 +10,22 @@
 
 <body>
 
+<section id="pageOne">
+    <section id="searchContainer" style="margin-top: 10px;">
+        <div id="search">
+            <input type="text" id="searchInput" placeholder="Digite a palavra a ser encontrada" class="blinking-cursor">
+            <div>
+                <button onclick="search()">Buscar</button>
+                <button id="clear">Limpar</button>
+            </div>
+        </div>
+        <div id="searchResults"></div>
+    </section>
+    
     <main>
 
 
 
-<section id="pageOne">
-    
-    
             <section id="disclaimer">
     
                 <div>
@@ -80,19 +89,6 @@
 
 
 
-
-        <section id="searchContainer">
-            <div id="search">
-                <input type="text" id="searchInput" placeholder="Digite a palavra a ser encontrada"
-                    class="blinking-cursor">
-                <div>
-                    <button onclick="search()">Buscar</button>
-                    <button id="clear">Limpar</button>
-                </div>
-            </div>
-            <div id="searchResults"></div>
-        </section>
-
         <section class="index">
             <h1>Acesse por categoria</h1>
             <ul>
@@ -154,7 +150,7 @@
         </section>
     </main>
 
-
+    <script src="./js/searchbar.js"></script>
     <script>
 
 

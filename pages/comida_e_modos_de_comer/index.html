@@ -2,13 +2,24 @@
 <!DOCTYPE html>
 
 <html lang="pt-br">
-<head>
+<head><link href="../../styles/general.css" rel="stylesheet"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../styles/sumarios.css" rel="stylesheet"/>
 <title>Comida e modos de comer</title>
 </head>
 <body>
+<section id="searchContainer" style="margin-top: 10px;">
+<div id="search">
+<input class="blinking-cursor" id="searchInput" placeholder="Digite a palavra a ser encontrada" type="text"/>
+<div>
+<button onclick="search()">Buscar</button>
+<button id="clear">Limpar</button>
+</div>
+</div>
+<div id="searchResults"></div>
+</section>
+
 <main>
 <h1>Comida e modos de comer</h1>
 <ul>
@@ -20,23 +31,7 @@
 <li><a href="./_em_ponto_de_dentro_.html" target="_blank">“Em ponto de dentro”</a></li>
 <li><a href="./fome_na_abundancia.html" target="_blank">Fome na abundância</a></li>
 <li><a href="./a_carne_e_forte.html" target="_blank">A carne é forte</a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </ul>
 </main>
-</body>
+<script src="../../js/searchbar.js"></script></body>
 </html>
