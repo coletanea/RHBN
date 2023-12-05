@@ -253,11 +253,7 @@ article {
 
 }
 
-@media screen and (max-width: 1700px) {
-    #pageOne {
-        height: fit-content;
-    }
-}
+
 
 @media screen and (max-width: 1000px) {
     main {
