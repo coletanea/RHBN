@@ -80,43 +80,39 @@ subdirectories = [
 ]
 
 
-def add_searchbar_to_html(file_path):
-    
+def remove_searchbar_from_html(file_path):
     if os.path.exists(file_path):
         with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
 
-            
-            if '<section id="searchContainer">' not in content:
-                soup = BeautifulSoup(content, "html.parser")
+            soup = BeautifulSoup(content, "html.parser")
 
-                
-                head_tag = soup.head
-                head_tag.insert(0, BeautifulSoup(css_link, "html.parser"))
+            # Remove search bar section
+            search_container = soup.find("section", {"id": "searchContainer"})
+            if search_container:
+                search_container.decompose()
 
-                body_tag = soup.body
+            # Remove CSS link
+            css_link_tag = soup.find("link", {"href": "../../styles/general.css"})
+            if css_link_tag:
+                css_link_tag.decompose()
 
-                
-                body_tag.insert(0, BeautifulSoup(searchbar_html, "html.parser"))
+            # Remove JavaScript script link
+            js_script_tag = soup.find("script", {"src": "../../js/searchbar.js"})
+            if js_script_tag:
+                js_script_tag.decompose()
 
-                
-                body_tag.append(BeautifulSoup(js_script_link, "html.parser"))
-
-                
-                with open(file_path, "w", encoding="utf-8") as modified_file:
-                    modified_file.write(str(soup))
+            with open(file_path, "w", encoding="utf-8") as modified_file:
+                modified_file.write(str(soup))
 
 
 for subdir in subdirectories:
     subdir_path = os.path.join(base_directory, subdir)
 
-    
     if os.path.isdir(subdir_path):
         index_file_path = os.path.join(subdir_path, "index.html")
-        
-        
+
         if os.path.exists(index_file_path):
-            
-            add_searchbar_to_html(index_file_path)
+            remove_searchbar_from_html(index_file_path)
 
 print("Automatização concluída com sucesso.")
